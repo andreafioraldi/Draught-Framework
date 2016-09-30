@@ -1,0 +1,6 @@
+{
+  "name": "Draught Framework",
+  "tagline": "Draught Framework is a software framework that includes a virtual machine environment (Dubbel) a programming language (Stout) and a set of libraries (IPA). Yes i like beer.",
+  "body": "### Draught Framework\r\nis a software framework composed by three core components:\r\n+ Dubbel, a run-time environment with its bytecode and its assembly\r\n+ Stout, an untyped programming language that is compiled to Dubbel bytecode\r\n+ IPA, a set of class libraries written in Stout and C++\r\n\r\nDubbel is composed by a virtual machine, an assembler and a disassembler.\r\nIt also has a module called Dubbel Builder, a library designed to simplify the creation of compilers that target the dubbel bytecode.\r\n\r\nStout come with a compiler and a shell.\r\n\r\n\r\nAuthor: Andrea Fioraldi (andreafioraldi@gmail.com)\r\n\r\nLicense: GNU Lesser General Public License v3",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
