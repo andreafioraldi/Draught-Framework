@@ -1,0 +1,56 @@
+
+attach Dictionary;
+
+new object {
+	attach At;
+	attach ToString;
+	attach Clear;
+	attach Remove;
+	private:
+	attach keys <- [];
+	attach values <- [];
+	if(args.Length() > 0) {
+		for(i = 0; i < args.Length(); i += 1) {
+			if(typeof args[i] != typeof [])
+				throw "Map.Dictionary : the argument " + (i+1).ToString() + " must be of type array";
+			if(args[i].Length() != 2)
+				throw "Map.Dictionary : the argument " + (i+1).ToString() + " length must be 2";
+			me.At(args[i][0]) @= args[i][1];
+		}
+	}
+}() -> Dictionary;
+
+object {
+	if((idx <- parent.keys.Find(args[0])) == -1) {
+		parent.keys.Push(args[0]);
+		parent.values.Push(none);
+		return parent.values.Last();
+	}
+	else return parent.values[idx];
+} -> Dictionary.At;
+
+object {
+	len <- parent.keys.Length();
+	str = "Dictionary(";
+	for(i = 0; i < len; i += 1) {
+		str += "[" + parent.keys[i].ToString() + ", " + parent.values[i].ToString() + "]";
+		if(i < len -1)
+			str += ", ";
+	}
+	return str + ")";
+} -> Dictionary.ToString;
+
+object {
+	parent.keys <- [];
+	parent.values <- [];
+} -> Dictionary.Clear;
+
+object {
+	if((idx <- parent.keys.Find(args[0])) != -1) {
+		parent.keys.Pop(idx);
+		parent.values.Pop(idx);
+		return true;
+	}
+	return false;
+} -> Dictionary.Remove;
+
