@@ -23,10 +23,11 @@ else (UNIX)
 	set(LIB_DL "")
 endif (UNIX)
 
-target_link_libraries(DubbelVM ${GMP_LIBRARIES} ${LIB_DL})
+target_link_libraries(DubbelVM ${GMP_LIBRARIES} ${GMPXX_LIBRARIES} ${LIB_DL})
 
-if(WIN32)
+if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 install(TARGETS DubbelVM RUNTIME DESTINATION lib)
+install(CODE "execute_process(COMMAND setx /M DUBBEL_LIBPATH \"${CMAKE_INSTALL_PREFIX}\\lib\")")
 else()
 install(TARGETS DubbelVM LIBRARY DESTINATION lib)
 endif()

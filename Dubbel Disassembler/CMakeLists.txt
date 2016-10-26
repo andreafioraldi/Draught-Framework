@@ -5,6 +5,6 @@ add_executable(ddis
 	${CMAKE_CURRENT_SOURCE_DIR}/DDis.cpp
 )
 
-target_link_libraries(ddis DubbelDisassembler ${GMP_LIBRARIES})
+target_link_libraries(ddis DubbelDisassembler ${GMP_LIBRARIES} ${GMPXX_LIBRARIES})
 
 install(TARGETS ddis RUNTIME DESTINATION bin)

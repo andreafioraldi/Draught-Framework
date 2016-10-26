@@ -5,9 +5,9 @@ add_library(DubbelBuilder SHARED
 	${CMAKE_CURRENT_SOURCE_DIR}/Builder.cpp
 )
 
-target_link_libraries(DubbelBuilder ${GMP_LIBRARIES})
+target_link_libraries(DubbelBuilder ${GMP_LIBRARIES} ${GMPXX_LIBRARIES})
 
-if(WIN32)
+if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 install(TARGETS DubbelBuilder RUNTIME DESTINATION lib)
 else()
 install(TARGETS DubbelBuilder LIBRARY DESTINATION lib)

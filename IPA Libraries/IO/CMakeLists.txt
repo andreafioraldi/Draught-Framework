@@ -7,9 +7,9 @@ add_library(IO SHARED
 set_target_properties(IO PROPERTIES SUFFIX ".dubsl")
 set_target_properties(IO PROPERTIES PREFIX "")
 
-target_link_libraries(IO DubbelVM ${GMP_LIBRARIES})
+target_link_libraries(IO DubbelVM ${GMP_LIBRARIES} ${GMPXX_LIBRARIES})
 
-if(WIN32)
+if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 install(TARGETS IO RUNTIME DESTINATION lib)
 else()
 install(TARGETS IO LIBRARY DESTINATION lib)

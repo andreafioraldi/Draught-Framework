@@ -1,7 +1,7 @@
 
 attach Dictionary;
 
-new object {
+object {
 	attach At;
 	attach ToString;
 	attach Clear;
@@ -18,7 +18,9 @@ new object {
 			me.At(args[i][0]) @= args[i][1];
 		}
 	}
-}() -> Dictionary;
+} -> Dictionary;
+
+Dictionary();
 
 object {
 	if((idx <- parent.keys.Find(args[0])) == -1) {

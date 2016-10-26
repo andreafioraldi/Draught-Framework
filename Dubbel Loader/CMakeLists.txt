@@ -5,6 +5,6 @@ add_executable(dubbel
 	${CMAKE_CURRENT_SOURCE_DIR}/Loader.cpp
 )
 
-target_link_libraries(dubbel DubbelVM ${GMP_LIBRARIES})
+target_link_libraries(dubbel DubbelVM ${GMP_LIBRARIES} ${GMPXX_LIBRARIES})
 
 install(TARGETS dubbel RUNTIME DESTINATION bin)

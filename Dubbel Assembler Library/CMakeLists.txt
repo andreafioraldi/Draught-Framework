@@ -8,9 +8,9 @@ add_library(DubbelAssembler SHARED
 	${CMAKE_CURRENT_SOURCE_DIR}/ScanLines.cpp
 )
 
-target_link_libraries(DubbelAssembler DubbelBuilder ${GMP_LIBRARIES})
+target_link_libraries(DubbelAssembler DubbelBuilder ${GMP_LIBRARIES} ${GMPXX_LIBRARIES})
 
-if(WIN32)
+if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 install(TARGETS DubbelAssembler RUNTIME DESTINATION lib)
 else()
 install(TARGETS DubbelAssembler LIBRARY DESTINATION lib)

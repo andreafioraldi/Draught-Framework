@@ -5,6 +5,6 @@ add_executable(dubar
 	${CMAKE_CURRENT_SOURCE_DIR}/Archiver.cpp
 )
 
-target_link_libraries(dubar DubbelVM ${GMP_LIBRARIES})
+target_link_libraries(dubar DubbelVM ${GMP_LIBRARIES} ${GMPXX_LIBRARIES})
 
 install(TARGETS dubar RUNTIME DESTINATION bin)

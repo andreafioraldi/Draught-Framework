@@ -29,9 +29,9 @@ add_library(Math SHARED
 set_target_properties(Math PROPERTIES SUFFIX ".dubsl")
 set_target_properties(Math PROPERTIES PREFIX "")
 
-target_link_libraries(Math DubbelVM ${GMP_LIBRARIES} ${MPFR_LIBRARIES})
+target_link_libraries(Math DubbelVM ${GMP_LIBRARIES} ${GMPXX_LIBRARIES} ${MPFR_LIBRARIES})
 
-if(WIN32)
+if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 install(TARGETS Math RUNTIME DESTINATION lib)
 else()
 install(TARGETS Math LIBRARY DESTINATION lib)

@@ -5,9 +5,9 @@ add_library(DubbelDisassembler SHARED
 	${CMAKE_CURRENT_SOURCE_DIR}/Disassembler.cpp
 )
 
-target_link_libraries(DubbelDisassembler ${GMP_LIBRARIES})
+target_link_libraries(DubbelDisassembler ${GMP_LIBRARIES} ${GMPXX_LIBRARIES})
 
-if(WIN32)
+if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 install(TARGETS DubbelDisassembler RUNTIME DESTINATION lib)
 else()
 install(TARGETS DubbelDisassembler LIBRARY DESTINATION lib)

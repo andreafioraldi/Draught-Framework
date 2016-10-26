@@ -137,6 +137,22 @@ vector<Line> dubbel::ScanLines(const String & code) {
 			tmp = "";
 		}
 	}
+	if(tmp != "") {
+		Line l;
+		l.words = SplitLine(tmp);
+		if(l.words.size() != 0) {
+			l.index = lines.size()+1;
+			if(l.words[0][0] == ':')
+				l.type = LineType::Label;
+			else if(l.words[0][0] == '$')
+				l.type = LineType::Const;
+			if(l.type != LineType::Label) {
+				for(size_t j = 0; j < l.words[0].size(); ++j)
+					l.words[0][j] = toupper(l.words[0][j]);
+			}
+			lines.push_back(l);
+		}
+	}
 	return lines;
 }
 

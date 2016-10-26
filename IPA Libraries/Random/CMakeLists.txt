@@ -7,9 +7,9 @@ add_library(Random SHARED
 set_target_properties(Random PROPERTIES SUFFIX ".dubsl")
 set_target_properties(Random PROPERTIES PREFIX "")
 
-target_link_libraries(Random DubbelVM ${GMP_LIBRARIES})
+target_link_libraries(Random DubbelVM ${GMP_LIBRARIES} ${GMPXX_LIBRARIES})
 
-if(WIN32)
+if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 install(TARGETS Random RUNTIME DESTINATION lib)
 else()
 install(TARGETS Random LIBRARY DESTINATION lib)

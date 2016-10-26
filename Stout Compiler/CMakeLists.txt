@@ -6,6 +6,6 @@ add_executable(stoutc
 	${CMAKE_CURRENT_SOURCE_DIR}/StoutC.cpp
 )
 
-target_link_libraries(stoutc StoutCompiler DubbelBuilder ${GMP_LIBRARIES})
+target_link_libraries(stoutc StoutCompiler DubbelBuilder ${GMP_LIBRARIES} ${GMPXX_LIBRARIES})
 
 install(TARGETS stoutc RUNTIME DESTINATION bin)

@@ -7,9 +7,9 @@ add_library(Time SHARED
 set_target_properties(Time PROPERTIES SUFFIX ".dubsl")
 set_target_properties(Time PROPERTIES PREFIX "")
 
-target_link_libraries(Time DubbelVM ${GMP_LIBRARIES})
+target_link_libraries(Time DubbelVM ${GMP_LIBRARIES} ${GMPXX_LIBRARIES})
 
-if(WIN32)
+if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 install(TARGETS Time RUNTIME DESTINATION lib)
 else()
 install(TARGETS Time LIBRARY DESTINATION lib)

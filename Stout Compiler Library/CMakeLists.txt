@@ -16,9 +16,9 @@ add_library(StoutCompiler SHARED
 	${CMAKE_CURRENT_SOURCE_DIR}/Lexer.cpp
 )
 
-target_link_libraries(StoutCompiler DubbelBuilder ${GMP_LIBRARIES})
+target_link_libraries(StoutCompiler DubbelBuilder ${GMP_LIBRARIES} ${GMPXX_LIBRARIES})
 
-if(WIN32)
+if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 install(TARGETS StoutCompiler RUNTIME DESTINATION lib)
 else()
 install(TARGETS StoutCompiler LIBRARY DESTINATION lib)

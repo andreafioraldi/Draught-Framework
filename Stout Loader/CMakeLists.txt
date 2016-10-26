@@ -7,7 +7,7 @@ add_executable(stout
 	${CMAKE_CURRENT_SOURCE_DIR}/Stout.cpp
 )
 
-target_link_libraries(stout StoutCompiler DubbelBuilder DubbelVM ${GMP_LIBRARIES})
+target_link_libraries(stout StoutCompiler DubbelBuilder DubbelVM ${GMP_LIBRARIES} ${GMPXX_LIBRARIES})
 
 install(TARGETS stout RUNTIME DESTINATION bin)
 
