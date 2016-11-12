@@ -279,10 +279,14 @@ NativeDef(GetDir) {
 	char mydir[MAX_PATH];
 	_getcwd(mydir, MAX_PATH);
 	String s(mydir);
-#else
+#elif defined _GNU_SOURCE
 	char * mydir = get_current_dir_name();
 	String s(mydir);
 	free(mydir);
+#else
+	char mydir[FILENAME_MAX];
+	getcwd(mydir, FILENAME_MAX);
+	String s(mydir);
 #endif
 	return Var(s);
 }

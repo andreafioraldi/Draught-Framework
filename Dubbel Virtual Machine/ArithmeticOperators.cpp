@@ -53,6 +53,8 @@ Var dubbel::Var::operator+(Var v) {
 			return Var(Int(GetChar() + v.GetInt()));
 		else if(v.Type() == TypeId::Float)
 			return Var(Float(GetChar() + v.GetFloat()));
+		else if(v.Type() == TypeId::String)
+			return Var(String{(char)GetChar()} + v.GetString());
 	}
 	else if(Type() == TypeId::Int) {
 		if(v.Type() == TypeId::Char)
@@ -65,6 +67,10 @@ Var dubbel::Var::operator+(Var v) {
 			return Var(Float(GetFloat() + v.GetChar()));
 		else if(v.Type() == TypeId::Int)
 			return Var(Float(GetFloat() + v.GetInt()));
+	}
+	else if(Type() == TypeId::String) {
+		if(v.Type() == TypeId::Char)
+			return Var(GetString() + String{(char)v.GetChar()});
 	}
 	throw Var("Add operator : " + TypeStr(*this) + " and " + TypeStr(v) + " are invalid operands types");
 }

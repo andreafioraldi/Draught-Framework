@@ -115,7 +115,7 @@ int main(int argc, char ** argv) {
 		return EXIT_FAILURE;
 	}
 	if(mainFile == "") {
-		if (noInFile) {
+		if (noInFile && !noOutFile) {
 			cerr << "No main file.\n";
 			return EXIT_FAILURE;
 		}

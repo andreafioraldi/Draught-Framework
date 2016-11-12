@@ -93,6 +93,7 @@ void dubbel::Var::Extends(Var v) {
 		throw Var("Extends operator : the operand is not an object");
 	if(v.Type() != TypeId::Object)
 		throw Var("Extends operator : an object must be extended only with another object");
+	GetObject().extra = v.GetObject().extra;
 	for(map<String , Var>::reverse_iterator it = v.GetObject().members.rbegin(); it != v.GetObject().members.rend(); ++it) {
 		GetObject().members[it->first].Assign(it->second);
 		GetObject().modifiers[it->first] = v.GetObject().modifiers[it->first];

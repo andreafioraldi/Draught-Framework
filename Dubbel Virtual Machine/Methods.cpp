@@ -139,7 +139,7 @@ Var dubbel::string_ToInt(Var me, Var args) {
 		i = *s;
 	}
 	catch(invalid_argument err) {
-		throw Var("<String>.toInt : the string is not a number");
+		throw Var("<String>.ToInt : the string is not a number");
 	}
 	return Var(i);
 }
@@ -506,7 +506,7 @@ Int ArrayFind(Array & a, Var e, size_t pos) {
 	return Int(pos);
 }
 
-Int ArrayRFind(Array & a, Var e, size_t pos) {
+Int ArrayRFind(Array & a, Var e, long pos) {
 	for (; pos >= 0; --pos)
 		if (a[pos] == e) break;
 	if (pos == a.size())
@@ -535,7 +535,7 @@ Var dubbel::array_RFind(Var me, Var args) {
 	if(args.GetArray().size() < 1) {
 		throw Var("<Array>.RFind : an argument is needed");
 	}
-	size_t pos = me.GetObject().parent->GetArray().size() -1;
+	long pos = me.GetObject().parent->GetArray().size() -1;
 	if(args.GetArray().size() > 1) {
 		if(args.GetArray()[1].Type() != TypeId::Int) {
 			throw Var("<Array>.RFind : the argument 2 must be of type int");

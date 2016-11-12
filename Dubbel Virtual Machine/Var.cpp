@@ -337,17 +337,15 @@ Var & dubbel::Var::Assign(Object t) {
 Var & Var::RefAssign(Var v) {
 	if(ReadOnly())
 		throw Var("RefAssign operator : readonly variable");
-	if(v.Type() == TypeId::Char)
-		Set(v.GetChar());
-	else if(v.Type() == TypeId::Int)
-		Set(v.GetInt());
-	else if(v.Type() == TypeId::Float)
-		Set(v.GetFloat());
-	else if(v.Type() == TypeId::Bool)
-		Set(v.GetBool());
-	else if(v.Type() == TypeId::String)
-		Set(v.GetString());
-	else if(v.Type() == TypeId::Array) {
+	TypeId vtype = v.Type();
+	if (vtype == TypeId::Object) {
+		Set(v.GetObject().Copy());
+		if (GetObject().members.find("_copy") != GetObject().members.end() && Attr("_copy").Type() == TypeId::Object) {
+			Attr("_copy").GetObject().SetParent(*this);
+			Attr("_copy").Call(Var(Array())).Clear();
+		}
+	}
+	else if(vtype == TypeId::Array) {
 		Array a;
 		size_t s = v.GetArray().size();
 		a.reserve(s);
@@ -355,14 +353,29 @@ Var & Var::RefAssign(Var v) {
 			a.push_back(GetArray().at(i).Copy());
 		Set(a);
 	}
-	else if (v.Type() == TypeId::Object) {
-		Set(v.GetObject().Copy());
-		if (GetObject().members.find("_copy") != GetObject().members.end() && Attr("_copy").Type() == TypeId::Object) {
-			Attr("_copy").GetObject().SetParent(*this);
-			Attr("_copy").Call(Var(Array())).Clear();
-		}
+	else if(Type() == vtype) {
+		if(vtype == TypeId::Char)
+			GetChar() = v.GetChar();
+		else if(vtype == TypeId::Int)
+			GetInt() = v.GetInt();
+		else if(vtype == TypeId::Float)
+			GetInt() = v.GetInt();
+		else if(vtype == TypeId::Bool)
+			GetBool() = v.GetBool();
+		else if(vtype == TypeId::String)
+			GetString() = v.GetString();
 	}
-	else if (v.Type() == TypeId::None)
+	else if(vtype == TypeId::Char)
+		Set(v.GetChar());
+	else if(vtype == TypeId::Int)
+		Set(v.GetInt());
+	else if(vtype == TypeId::Float)
+		Set(v.GetFloat());
+	else if(vtype == TypeId::Bool)
+		Set(v.GetBool());
+	else if(vtype == TypeId::String)
+		Set(v.GetString());
+	else if (vtype == TypeId::None)
 		SetNone();
 	return *this;
 }
