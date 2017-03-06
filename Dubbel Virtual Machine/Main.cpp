@@ -40,7 +40,7 @@ int dubbel::RunMain(const String & s, int argc , char ** argv) {
 	cmdArgs = argv;
 	cmdArgsLen = argc;
 	Code * code = BuildCode(s, 0, s.size());
-	mainObj = Var(Object(code), &mainObj);
+	mainObj = Var(Object(code, &mainObj));
 	Array args;
 	for(int i = 1; i < argc; ++i)
 		args.push_back(Var(String(argv[i])));
@@ -90,7 +90,7 @@ int dubbel::RunMain(const Archive & a, int argc , char ** argv) {
 		if(a.fileNames[i] == a.mainName) {
 			mainFound = true;
 			code = BuildCode(a.fileContents[i], 0, a.fileContents[i].size());
-			mainObj = Var(Object(code), &mainObj);
+			mainObj = Var(Object(code, &mainObj));
 		}
 		else {
 			Code * c = BuildCode(a.fileContents[i] , 0 , a.fileContents[i].size());

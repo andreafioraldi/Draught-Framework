@@ -1177,7 +1177,7 @@ void ObjectNode::ToByteCode(Compiler * compiler, Scope * scope) {
 	ns.SolveLabels();
 	if(ns.builder.body.Len() > 0 && ns.builder.body[ns.builder.body.Len() -1].opcode == OPC_STACK_POP)
 		ns.builder.body.Pop(ns.builder.body.Len() -1);
-	scope->builder.constPool.Join(ns.builder.BuildCode(OPC_$CODE));
+	scope->builder.AddCode(ns.builder.BuildCode(OPC_$CODE));
 	if(children[0] == nullptr)
 		scope->builder.Append(OPC_BUILD_OBJ, scope->codes++);
 	else {

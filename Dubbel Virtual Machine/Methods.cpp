@@ -552,14 +552,14 @@ Var dubbel::array_First(Var me, Var args) {
 	if(me.GetObject().parent->GetArray().size() == 0) {
 		throw Var("<Array>.First : empty array");
 	}
-	return me.GetObject().parent->GetArray().front();
+	return me.GetObject().parent->GetArray().front().Reference();
 }
 
 Var dubbel::array_Last(Var me, Var args) {
 	if(me.GetObject().parent->GetArray().size() == 0) {
 		throw Var("<Array>.Last : empty array");
 	}
-	return me.GetObject().parent->GetArray().back();
+	return me.GetObject().parent->GetArray().back().Reference();
 }
 
 Var dubbel::array_Clear(Var me, Var args) {

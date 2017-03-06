@@ -178,7 +178,6 @@ int main(int argc, char ** argv) {
 		return EXIT_FAILURE;
 	}
 	String arg(argv[1]);
-	ifstream * fs;
 	if(arg == "-help") {
 		Help();
 		return EXIT_SUCCESS;
@@ -274,12 +273,11 @@ int main(int argc, char ** argv) {
 		}
 		return r;
 	}
-	
-	if (argc < 4) {
-		Help();
-		return EXIT_FAILURE;
-	}
-	if(arg == "-e" || arg == "-extract") {
+	else if(arg == "-e" || arg == "-extract") {
+		if (argc < 4) {
+			Help();
+			return EXIT_FAILURE;
+		}
 		String arg1 = argv[2];
 		String arg2 = argv[3];
 		ifstream * fs;
@@ -291,6 +289,17 @@ int main(int argc, char ** argv) {
 			fs->close();
 			delete fs;
 		}
+		return r;
+	}
+	else {
+		String arg1 = argv[1];
+		ifstream * fs;
+		if(arg1 == "-stdin")
+			fs = (ifstream*)&cin;
+		else fs = new ifstream(argv[1], ifstream::in | ifstream::binary);
+		int r = exec(fs, argc, argv);
+		if(arg1 != "-stdin")
+			delete fs;
 		return r;
 	}
 	Help();
