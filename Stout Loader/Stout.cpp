@@ -96,7 +96,7 @@ void stoutShell(int argc, char ** argv) {
 	cmdArgsLen = argc;
 	vector<string> names;
 	Scope scope;
-	Var args(Array());
+	Var args = Array();
 	if(argc > 1)
 		for(int i = 2; i < argc; ++i)
 			args.GetArray().push_back(Var(String(argv[i])));
