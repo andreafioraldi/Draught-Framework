@@ -14,3 +14,5 @@ To compile with Visual Studio put the MPIR and MPFR libs and headers in the proj
 You can download precompiled MPIR and MPFR at :
 + (x86) http://andreafioraldi.altervista.org/mpir_mpfr_msvcx86.zip
 + (x86_64) http://andreafioraldi.altervista.org/mpir_mpfr_msvcx86_64.zip
+
+(ported from a 2015 SourceForge project)
