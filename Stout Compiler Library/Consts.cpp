@@ -203,7 +203,7 @@ Node * ConstMul(Node * a, Node * b, string file, size_t l) {
 		else if(a->type == NodeType::Float64) {
 			String s = ((Float64Node*)a)->text;
 			a->Destroy();
-			a = createFloatNode(Float((s, 64) * Float(((Float64Node*)b)->text, 64)), l);
+			a = createFloatNode(Float(Float(s, 64) * Float(((Float64Node*)b)->text, 64)), l);
 		}
 		else if(a->type == NodeType::Char) {
 			String s = { (char)(ParseChar(((CharNode*)a)->text) * ParseChar(((CharNode*)b)->text)) };
@@ -417,7 +417,7 @@ Node * ConstAdd(Node * a, Node * b, string file, size_t l) {
 		else if (a->type == NodeType::Float64) {
 			String s = ((Float64Node*)a)->text;
 			a->Destroy();
-			a = createFloatNode(Float((s, 64) + Float(((Float64Node*)b)->text, 64)), l);
+			a = createFloatNode(Float(Float(s, 64) + Float(((Float64Node*)b)->text, 64)), l);
 		}
 		else if (a->type == NodeType::Char) {
 			String s = { (char)(ParseChar(((CharNode*)a)->text) + ParseChar(((CharNode*)b)->text)) };
@@ -528,7 +528,7 @@ Node * ConstSub(Node * a, Node * b, string file, size_t l) {
 		else if (a->type == NodeType::Float64) {
 			String s = ((Float64Node*)a)->text;
 			a->Destroy();
-			a = createFloatNode(Float((s, 64) - Float(((Float64Node*)b)->text, 64)), l);
+			a = createFloatNode(Float(Float(s, 64) - Float(((Float64Node*)b)->text, 64)), l);
 		}
 		else if (a->type == NodeType::Char) {
 			String s = { (char)(ParseChar(((CharNode*)a)->text) - ParseChar(((CharNode*)b)->text)) };
