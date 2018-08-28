@@ -25,9 +25,13 @@
 
 #include "StoutCompiler.h"
 #include "Dubbel.h"
+
 #include <cstdlib>
 #include <fstream>
 #include <cstdint>
+
+#include <readline/readline.h>
+#include <readline/history.h>
 
 #ifdef __APPLE__
 #include "TargetConditionals.h"
@@ -107,8 +111,22 @@ void stoutShell(int argc, char ** argv) {
 	String cmd;
 	
 	while(true) {
-		cout << "stout> ";
+#ifdef USE_READLINE
+        char* readline_buf = readline("stout> ");
+        if(readline_buf == nullptr) {//eof
+            cout << "Good Bye." << endl;
+            Exit(0);
+        }
+        cmd = readline_buf;
+        free(readline_buf);
+#else
+        cout << "stout> ";
 		getline(cin, cmd);
+		if(!cin) { //io err
+		    cout << "Good Bye." << endl;
+		    Exit(0);
+	    }
+#endif
 		if (cmd.size() == 0)
 			continue;
 		while(isspace(cmd[cmd.size() -1]))
@@ -117,11 +135,15 @@ void stoutShell(int argc, char ** argv) {
 			continue;
 		if(cmd[cmd.size() -1] == '{') {
 			string last = " ";
+			cmd += "\n";
 			while(last.size() > 0) {
 				getline(cin, last);
 				cmd += last + "\n";
 			}
 		}
+#ifdef USE_READLINE
+        add_history(cmd.c_str());
+#endif
 		if(cmd[cmd.size() -1] != ';')
 			cmd += ";";
 		Compiler comp(cmd, "<shell>");
@@ -156,6 +178,13 @@ void stoutShell(int argc, char ** argv) {
 				locals.push_back(Var());
 			Var returned;
 			ExecCode(&code, &mainObj, args, returned, locals, stack);
+			if(stack.size() > 0) {
+			    Var lastval = stack[0].Get();
+			    if(lastval.Type() != TypeId::None)
+			        cout << "[" << TypeStr(lastval) << "] " << lastval.ToString() << endl;
+    	        while(stack.size() > 0)
+			        StackPop(stack);
+	        }
 			returned.Clear();
 		}
 		catch(Var err) {
@@ -239,6 +268,9 @@ int execArchive(int argc, char ** argv) {
 
 
 int main(int argc, char ** argv) {
+#ifdef USE_READLINE
+    rl_bind_key('\t', rl_insert);
+#endif
 	if(argc < 2)
 		stoutShell(argc, argv);
 	else {
